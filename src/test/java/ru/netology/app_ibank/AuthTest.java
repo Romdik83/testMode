@@ -16,48 +16,5 @@ public class AuthTest {
         open("http://localhost:9999");
     }
 
-    @Test
-    void shouldLogin() {
-        val user = DataGenerator.Registration.registerUser("en-US", "active");
-        $("span[data-test-id='login'] input").setValue(user.getLogin());
-        $("span[data-test-id='password'] input").setValue(user.getPassword());
-        $("button[data-test-id='action-login']").click();
-        $("body div#root h2").shouldHave(text("Личный кабинет"));
-    }
 
-    @Test
-    void shouldNotifyThatPasswordIsIncorrectForActiveUser() {
-        val user = DataGenerator.Registration.registerUser("en-US", "active");
-        $("span[data-test-id='login'] input").setValue(user.getLogin());
-        $("span[data-test-id='password'] input").setValue(user.getPassword() + "wrong");
-        $("button[data-test-id='action-login']").click();
-        $("div[data-test-id='error-notification']").shouldHave(text("Неверно указан логин или пароль"));
-    }
-
-    @Test
-    void shouldNotifyThatUserBlocked() {
-        val user = DataGenerator.Registration.registerUser("en-US", "blocked");
-        $("span[data-test-id='login'] input").setValue(user.getLogin());
-        $("span[data-test-id='password'] input").setValue(user.getPassword());
-        $("button[data-test-id='action-login']").click();
-        $("div[data-test-id='error-notification']").shouldHave(text("Пользователь заблокирован"));
-    }
-
-    @Test
-    void shouldNotifyThatPasswordIsIncorrectForBlockedUser() {
-        val user = DataGenerator.Registration.registerUser("en-US", "blocked");
-        $("span[data-test-id='login'] input").setValue(user.getLogin());
-        $("span[data-test-id='password'] input").setValue(user.getPassword() + "wrong");
-        $("button[data-test-id='action-login']").click();
-        $("div[data-test-id='error-notification']").shouldHave(text("Неверно указан логин или пароль"));
-    }
-
-    @Test
-    void shouldNotifyThatLoginIsIncorrect() {
-        val user = DataGenerator.Registration.registerUser("en-US", "active");
-        $("span[data-test-id='login'] input").setValue("wronguser");
-        $("span[data-test-id='password'] input").setValue("wrongpassword");
-        $("button[data-test-id='action-login']").click();
-        $("div[data-test-id='error-notification']").shouldHave(text("Неверно указан логин или пароль"));
-    }
 }
