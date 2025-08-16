@@ -5,7 +5,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import ru.netology.model.TestUser;
+import ru.netology.model.User;
 
 import java.util.Locale;
 
@@ -24,17 +24,17 @@ public class DataGenerator {
 
         private Registration() {}
 
-        private static TestUser generateUser(String locale, String status) {
+        private static User generateUser(String locale, String status) {
             Faker faker = new Faker(new Locale(locale));
 
-            return new TestUser(faker.name().username(),
+            return new User(faker.name().username(),
                     faker.internet().password(),
                     status
             );
         }
 
-        public static TestUser registerUser(String locale, String status) {
-            TestUser user = generateUser(locale, status);
+        public static User registerUser(String locale, String status) {
+            User user = generateUser(locale, status);
             // сам запрос
             given() // "дано"
                     .spec(requestSpec) // указываем, какую спецификацию используем
